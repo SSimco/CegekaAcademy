@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShelter", "PetShelter\Pe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShelter.DataAccessLayer", "PetShelter.DataAccessLayer\PetShelter.DataAccessLayer.csproj", "{4EFAA5CA-0F4C-48DD-983C-7853DA41EA79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShelterDemo", "PetShelterDemo\PetShelterDemo.csproj", "{82E68503-9CC2-47C4-A1A9-2ED4B50C72DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShelterDemo.Domain", "PetShelterDemo.Domain\PetShelterDemo.Domain.csproj", "{1FE8842D-6F91-4E4E-AA20-AA4971E8B9BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{4EFAA5CA-0F4C-48DD-983C-7853DA41EA79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EFAA5CA-0F4C-48DD-983C-7853DA41EA79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EFAA5CA-0F4C-48DD-983C-7853DA41EA79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82E68503-9CC2-47C4-A1A9-2ED4B50C72DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82E68503-9CC2-47C4-A1A9-2ED4B50C72DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82E68503-9CC2-47C4-A1A9-2ED4B50C72DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82E68503-9CC2-47C4-A1A9-2ED4B50C72DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FE8842D-6F91-4E4E-AA20-AA4971E8B9BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FE8842D-6F91-4E4E-AA20-AA4971E8B9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FE8842D-6F91-4E4E-AA20-AA4971E8B9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FE8842D-6F91-4E4E-AA20-AA4971E8B9BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

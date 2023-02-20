@@ -14,4 +14,8 @@ public class PersonRepository : BaseRepository<Person>, IPersonRepository
     {
         return await _context.Persons.SingleOrDefaultAsync(p => p.IdNumber == idNumber);
     }
+    public async Task<IEnumerable<Person>> GetDonors()
+    {
+        return await _context.Persons.Include(p => p.Donations).Where(p => p.Donations.Count() > 0).ToListAsync();
+    }
 }

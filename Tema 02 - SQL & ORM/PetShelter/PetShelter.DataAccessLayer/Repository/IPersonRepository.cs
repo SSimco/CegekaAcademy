@@ -2,7 +2,8 @@
 
 namespace PetShelter.DataAccessLayer.Repository;
 
-public interface IPersonRepository: IBaseRepository<Person>
+public interface IPersonRepository : IBaseRepository<Person>
 {
     Task<Person?> GetPersonByIdNumber(string idNumber);
+    Task<IEnumerable<Person>> GetDonors();
 }
