@@ -25,6 +25,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<IIdNumberValidator, IdNumberValidator>();
 builder.Services.AddScoped<IPetService, PetService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IDonationService, DonationService>();
 builder.Services.AddScoped<IDonationRepository, DonationRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IPetRepository, PetRepository>();

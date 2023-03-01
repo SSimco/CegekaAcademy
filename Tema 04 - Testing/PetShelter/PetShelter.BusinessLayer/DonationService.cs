@@ -4,7 +4,7 @@ using PetShelter.DataAccessLayer.Repository;
 
 namespace PetShelter.BusinessLayer;
 
-public class DonationService
+public class DonationService : IDonationService
 {
     private readonly IDonationRepository _donationRepository;
     private readonly IValidator<AddDonationRequest> _donationValidator;
