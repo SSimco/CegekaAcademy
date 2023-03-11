@@ -20,13 +20,10 @@ public class FundraiserService : IFundraiserService
     {
         fundraiser.CurrentRaisedAmount = 0m;
         fundraiser.CreationDate = DateTime.Now;
+        fundraiser.Status = FundraiserStatus.Active;
         if (fundraiser.CreationDate >= fundraiser.DueDate)
         {
             fundraiser.Status = FundraiserStatus.Closed;
-        }
-        else
-        {
-            fundraiser.Status = FundraiserStatus.Active;
         }
         var fundraiserFromDomain = fundraiser.FromDomainModel();
         await _fundraiserRepository.Add(fundraiserFromDomain);
@@ -44,15 +41,16 @@ public class FundraiserService : IFundraiserService
         await _fundraiserRepository.Update(fundraiser);
     }
 
-    public async Task DonateToFundraiser(int id, Person donor, decimal donationAmount)
+    public async Task DonateToFundraiser(int id, FundraiserDonation fundraiserDonation)
     {
         var fundraiser = await _fundraiserRepository.GetByIdWithDonors(id);
         if (fundraiser == null)
         {
             throw new NotFoundException($"No fundraiser with id {id} found!");
         }
+        var donor = fundraiserDonation.Donor;
         fundraiser.Donors.Add(donor.FromDomainModel());
-        fundraiser.CurrentRaisedAmount += donationAmount;
+        fundraiser.CurrentRaisedAmount += fundraiserDonation.Amount;
         if (fundraiser.CurrentRaisedAmount >= fundraiser.GoalValue)
         {
             fundraiser.Status = FundraiserStatus.Closed.ToString();

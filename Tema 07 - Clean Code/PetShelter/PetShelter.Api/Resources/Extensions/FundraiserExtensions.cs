@@ -2,14 +2,23 @@ namespace PetShelter.Api.Resources.Extensions;
 
 public static class FundraiserExtensions
 {
-    public static Domain.Fundraiser AsDomainModel(this FundraiserCreationInfo fundraiserInfo)
+    public static Domain.FundraiserDonation AsDomainModel(this FundraiserDonation fundraiserDonation)
+    {
+        return new Domain.FundraiserDonation
+        {
+            Donor = fundraiserDonation.Donor.AsDomainModel(),
+            Amount = fundraiserDonation.Amount
+        };
+    }
+
+    public static Domain.Fundraiser AsDomainModel(this FundraiserCreateRequest fundraiserCreateRequest)
     {
         return new Domain.Fundraiser
         {
-            GoalValue = fundraiserInfo.GoalValue,
-            Name = fundraiserInfo.Name,
-            DueDate = fundraiserInfo.DueDate,
-            Owner = fundraiserInfo.Owner.AsDomainModel()
+            GoalValue = fundraiserCreateRequest.GoalValue,
+            Name = fundraiserCreateRequest.Name,
+            DueDate = fundraiserCreateRequest.DueDate,
+            Owner = fundraiserCreateRequest.Owner.AsDomainModel()
         };
     }
 

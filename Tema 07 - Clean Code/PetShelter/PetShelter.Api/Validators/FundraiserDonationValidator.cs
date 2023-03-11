@@ -7,7 +7,7 @@ public class FundraiserDonationInfoValidator : AbstractValidator<FundraiserDonat
 {
     public FundraiserDonationInfoValidator()
     {
-        RuleFor(_ => _.DonationAmount).GreaterThan(1m);
+        RuleFor(_ => _.Amount).GreaterThan(1m);
         RuleFor(_ => _.Donor).SetValidator(new PersonValidator());
     }
 }

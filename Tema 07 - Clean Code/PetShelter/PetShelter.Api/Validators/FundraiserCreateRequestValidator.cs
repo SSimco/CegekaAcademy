@@ -3,9 +3,9 @@ using PetShelter.Api.Resources;
 
 namespace PetShelter.Api.Validators;
 
-public class FundraiserCreationInfoValidator : AbstractValidator<FundraiserCreationInfo>
+public class FundraiserCreateRequestValidator : AbstractValidator<FundraiserCreateRequest>
 {
-    public FundraiserCreationInfoValidator()
+    public FundraiserCreateRequestValidator()
     {
         RuleFor(_ => _.GoalValue).GreaterThan(100m);
         RuleFor(_ => _.Name).MinimumLength(10);

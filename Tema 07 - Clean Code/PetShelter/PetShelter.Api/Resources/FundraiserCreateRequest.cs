@@ -1,6 +1,6 @@
 namespace PetShelter.Api.Resources;
 
-public class FundraiserCreationInfo
+public class FundraiserCreateRequest
 {
     public decimal GoalValue { get; set; }
     public string Name { get; set; }

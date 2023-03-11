@@ -1,5 +1,4 @@
-namespace PetShelter.Api.Resources;
-using PetShelter.Api.Resources;
+namespace PetShelter.Domain;
 
 public class FundraiserDonation
 {

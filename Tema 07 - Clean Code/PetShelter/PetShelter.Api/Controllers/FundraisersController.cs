@@ -24,9 +24,9 @@ namespace FundraiserShelter.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateFundraiser([FromBody] FundraiserCreationInfo fundraiserCreationInfo)
+        public async Task<IActionResult> CreateFundraiser([FromBody] FundraiserCreateRequest fundraiserCreateRequest)
         {
-            var id = await _fundraiserService.CreateFundraiser(fundraiserCreationInfo.AsDomainModel());
+            var id = await _fundraiserService.CreateFundraiser(fundraiserCreateRequest.AsDomainModel());
             return CreatedAtRoute("GetFundraiser", new { id = id }, null);
         }
 
@@ -39,7 +39,7 @@ namespace FundraiserShelter.Api.Controllers
         {
             try
             {
-                await _fundraiserService.DonateToFundraiser(id, fundraiserDonation.Donor.AsDomainModel(), fundraiserDonation.DonationAmount);
+                await _fundraiserService.DonateToFundraiser(id, fundraiserDonation.AsDomainModel());
             }
             catch (NotFoundException)
             {
