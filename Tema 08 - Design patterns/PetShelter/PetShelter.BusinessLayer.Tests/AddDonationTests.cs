@@ -1,6 +1,5 @@
 ﻿using Moq;
 using PetShelter.BusinessLayer.Constants;
-using PetShelter.BusinessLayer.Models;
 using PetShelter.BusinessLayer.Validators;
 using PetShelter.DataAccessLayer.Models;
 using PetShelter.DataAccessLayer.Repository;
@@ -9,27 +8,16 @@ namespace PetShelter.BusinessLayer.Tests;
 
 public class AddDonationTests
 {
-    static AddDonationRequest GetValidDonationRequest()
-    {
-        return new AddDonationRequest
-        {
-            Amount = 10m,
-            Donor = new Models.Person
-            {
-                Name = "Donor",
-                IdNumber = new string('1', PersonConstants.IdNumberLength),
-                DateOfBirth = DateTime.Now.Date.AddYears(-PersonConstants.AdultMinAge)
-            }
-        };
-    }
-
     [Fact]
     public async Task GivenValidRequest_WhenAddDonation_DonationIsAdded()
     {
         var mockDonationRepository = new Mock<IDonationRepository>();
         var donationServiceSut = new DonationService(mockDonationRepository.Object, new AddDonationRequestValidator());
-
-        var request = GetValidDonationRequest();
+        var request = new AddDonationRequestBuilder().SetDonationAmount(10m)
+            .SetDonorName("Donor")
+            .SetDonorIdNumber(new string('1', PersonConstants.IdNumberLength))
+            .SetDonorDateOfBirth(DateTime.Now.Date.AddYears(-PersonConstants.AdultMinAge))
+            .GetRequest();
         await donationServiceSut.AddDonation(request);
 
         mockDonationRepository.Verify(x => x.Add(It.Is<Donation>(d => d.Amount == request.Amount)), Times.Once);
@@ -41,13 +29,10 @@ public class AddDonationTests
         var mockDonationRepository = new Mock<IDonationRepository>();
         var donationServiceSut = new DonationService(mockDonationRepository.Object, new AddDonationRequestValidator());
 
-        var request = new AddDonationRequest();
-        request.Donor = new Models.Person
-        {
-            Name = "Donor",
-            IdNumber = new string('1', PersonConstants.IdNumberLength),
-            DateOfBirth = DateTime.Now.Date.AddYears(-PersonConstants.AdultMinAge)
-        };
+        var request = new AddDonationRequestBuilder().SetDonorName("Donor")
+            .SetDonorIdNumber(new string('1', PersonConstants.IdNumberLength))
+            .SetDonorDateOfBirth(DateTime.Now.Date.AddYears(-PersonConstants.AdultMinAge))
+            .GetRequest();
         await Assert.ThrowsAsync<ArgumentException>(() => donationServiceSut.AddDonation(request));
 
         mockDonationRepository.Verify(x => x.Add(It.IsAny<Donation>()), Times.Never);
@@ -62,8 +47,11 @@ public class AddDonationTests
         var mockDonationRepository = new Mock<IDonationRepository>();
         var donationServiceSut = new DonationService(mockDonationRepository.Object, new AddDonationRequestValidator());
 
-        var request = GetValidDonationRequest();
-        request.Amount = donationAmount;
+        var request = new AddDonationRequestBuilder().SetDonationAmount(donationAmount)
+            .SetDonorName("Donor")
+            .SetDonorIdNumber(new string('1', PersonConstants.IdNumberLength))
+            .SetDonorDateOfBirth(DateTime.Now.Date.AddYears(-PersonConstants.AdultMinAge))
+            .GetRequest();
         await Assert.ThrowsAsync<ArgumentException>(() => donationServiceSut.AddDonation(request));
 
         mockDonationRepository.Verify(x => x.Add(It.IsAny<Donation>()), Times.Never);
@@ -75,8 +63,11 @@ public class AddDonationTests
         var mockDonationRepository = new Mock<IDonationRepository>();
         var donationServiceSut = new DonationService(mockDonationRepository.Object, new AddDonationRequestValidator());
 
-        var request = GetValidDonationRequest();
-        request.Donor.Name = new string('c', PersonConstants.NameMinLength - 1);
+        var request = new AddDonationRequestBuilder().SetDonationAmount(10m)
+            .SetDonorName(new string('c', PersonConstants.NameMinLength - 1))
+            .SetDonorIdNumber(new string('1', PersonConstants.IdNumberLength))
+            .SetDonorDateOfBirth(DateTime.Now.Date.AddYears(-PersonConstants.AdultMinAge))
+            .GetRequest();
 
         await Assert.ThrowsAsync<ArgumentException>(() => donationServiceSut.AddDonation(request));
 
@@ -89,9 +80,11 @@ public class AddDonationTests
         var mockDonationRepository = new Mock<IDonationRepository>();
         var donationServiceSut = new DonationService(mockDonationRepository.Object, new AddDonationRequestValidator());
 
-        var request = GetValidDonationRequest();
-        request.Donor.IdNumber = new string('1', PersonConstants.IdNumberLength - 1);
-
+        var request = new AddDonationRequestBuilder().SetDonationAmount(10m)
+           .SetDonorName(new string("Donor"))
+           .SetDonorIdNumber(new string('1', PersonConstants.IdNumberLength - 1))
+           .SetDonorDateOfBirth(DateTime.Now.Date.AddYears(-PersonConstants.AdultMinAge))
+           .GetRequest();
         await Assert.ThrowsAsync<ArgumentException>(() => donationServiceSut.AddDonation(request));
 
         mockDonationRepository.Verify(x => x.Add(It.IsAny<Donation>()), Times.Never);
@@ -103,9 +96,11 @@ public class AddDonationTests
         var mockDonationRepository = new Mock<IDonationRepository>();
         var donationServiceSut = new DonationService(mockDonationRepository.Object, new AddDonationRequestValidator());
 
-        var request = GetValidDonationRequest();
-        request.Donor.DateOfBirth = DateTime.Now.Date.AddYears(-PersonConstants.AdultMinAge + 1);
-
+        var request = new AddDonationRequestBuilder().SetDonationAmount(10m)
+          .SetDonorName(new string("Donor"))
+          .SetDonorIdNumber(new string('1', PersonConstants.IdNumberLength - 1))
+          .SetDonorDateOfBirth(DateTime.Now.Date.AddYears(-PersonConstants.AdultMinAge + 1))
+          .GetRequest();
         await Assert.ThrowsAsync<ArgumentException>(() => donationServiceSut.AddDonation(request));
 
         mockDonationRepository.Verify(x => x.Add(It.IsAny<Donation>()), Times.Never);
